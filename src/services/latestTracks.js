@@ -19,7 +19,6 @@ export async function getLatestTracks()
         return data;
     }
     catch(ex){
-        console.log(ex);
-        return null;
+        throw ex;
     }
 }
