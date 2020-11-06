@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert, ActivityIndicator, Text } from 'react-native';
+import { View, Alert, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Container, Content, List } from 'native-base';
 import {getLatestTracks} from '../services/latestTracks'
 import TrackItem from '../components/trackItem';
@@ -19,9 +19,8 @@ export default function LatestTracksTab() {
   });
 
   let view = isLoading ? (
-    <View>
-      <ActivityIndicator animating={isLoading}/>
-      <Text style={{marginTop: 10}}>Loading...</Text>
+    <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size="large" color="#3CAEA3"/>
     </View>
   ): (
   <List 
@@ -39,3 +38,15 @@ export default function LatestTracksTab() {
       </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  }
+});
