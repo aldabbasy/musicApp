@@ -1,10 +1,14 @@
 import React from 'react';
 import { ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 
+
 export default function TrackItem({ data, onClick }) {
 
   handleOnClick = () => {
-    return onClick(data.track, data.id_track,  data.id_artist, data.id_album);
+    if(onClick != null)
+    {
+      return onClick(data.track, data.id_track,  data.id_artist, data.id_album);
+    }
   }
 
   return (
@@ -18,9 +22,9 @@ export default function TrackItem({ data, onClick }) {
         <Text note numberOfLines={1}>Album: {data.album}</Text>
         </Body>
         <Right>
-        <Button onPress={handleOnClick} transparent>
+          <Button style={{display:onClick == null ? 'none': 'flex'}} onPress={handleOnClick} transparent>
             <Text>View</Text>
-        </Button>
+          </Button>
         </Right>
     </ListItem>
   );

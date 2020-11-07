@@ -1,7 +1,7 @@
-import { base_url, API_KEY, tracks_url} from '../config/rest_config';
+import { base_url, API_KEY, artists_url} from '../config/rest_config';
 import axios from 'axios';
 
-export async function getLatestTracks()
+export async function getArtists()
 {
     try{
         var data;
@@ -12,7 +12,7 @@ export async function getLatestTracks()
             }
         });
 
-        await api.get(`${tracks_url}`).then(res => {
+        await api.get(`${artists_url}`).then(res => {
             data = res.data;
         });
         //console.log(data);
@@ -23,26 +23,27 @@ export async function getLatestTracks()
     }
 }
 
-export async function getLyrics(lyricsUrl)
+export async function getArtistTracks(artistID)
 {
     try{
-        var data;
-        
+        var artistTracks = [];
         const api = axios.create({
             baseURL: `${base_url}`,
             headers: {
                 'x-happi-key': `${API_KEY}`
             }
         });
-        
-        await api.get(`${lyricsUrl}`).then(res => {
-            data = res.data.result;
+
+        await api.get(`${artists_url}/${artistID}/smart-playlist`).then(res => {
+            //console.log(res.data);
+            artistTracks = res.data.result;
+            
         });
         
-        return data;
+        return artistTracks;
     }
     catch(ex){
-        //console.log(ex.message);
+        console.log(ex.message);
         throw ex;
     }
 }

@@ -11,7 +11,7 @@ export default function LatestTracksTab() {
   const [tracks, setTracks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
-  const [trackLyrics, setTrackLyrics] = useState('');
+  const [trackLyrics, setTrackLyrics] = useState('Loading...');
 
   useEffect(() => {
     getLatestTracks().then(data => {
@@ -40,7 +40,7 @@ export default function LatestTracksTab() {
   handleOnModalClose = () => {
     setShowModal(false);
     setModalTitle('');
-    setTrackLyrics('');
+    setTrackLyrics('Loading...');
   }
 
   let view = isLoading ? (
