@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Container, Content, List } from 'native-base';
-import {getLatestTracks} from '../services/latestTracks'
+import { getLatestTracks, getLyrics } from '../services/latestTracks'
 import TrackItem from '../components/trackItem';
+import LyricsModal from '../components/lyricsModal';
 
 export default function LatestTracksTab() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [trackLyrics, setTrackLyrics] = useState('');
 
   useEffect(() => {
     getLatestTracks().then(data => {
@@ -16,7 +20,28 @@ export default function LatestTracksTab() {
     }, error => {
       Alert.alert('Error','Something went wrong!!!');
     });
-  });
+  }, []) 
+
+  handleOnTrackClick = (trackName, trackId, artistId, albumId) => {
+    let lyricsUrl = `/artists/${artistId}/albums/${albumId}/tracks/${trackId}/lyrics`;
+    //console.log(lyricsUrl);
+    setShowModal(true);
+    setModalTitle(trackName);
+    getLyrics(lyricsUrl).then(data => {
+      setTrackLyrics(data.lyrics != null ? data.lyrics : 'no lyrics founds');
+    }, error => {
+      //Alert.alert('Error','Something went wrong while fetching lyrics!!!');
+      setTrackLyrics('no lyrics founds');
+    });
+
+    
+  }
+
+  handleOnModalClose = () => {
+    setShowModal(false);
+    setModalTitle('');
+    setTrackLyrics('');
+  }
 
   let view = isLoading ? (
     <View style={[styles.container, styles.horizontal]}>
@@ -26,7 +51,7 @@ export default function LatestTracksTab() {
   <List 
     dataArray={tracks}
     renderRow={(track) => {
-      return <TrackItem key={track.id_track} data={track}/>
+      return <TrackItem key={track.id_track} data={track} onClick={handleOnTrackClick}/>
     }}/>
   );
 
@@ -35,6 +60,7 @@ export default function LatestTracksTab() {
         <Content>
           {view}
         </Content>
+        <LyricsModal showModal={showModal} modalTitle={modalTitle} trackLyrics={trackLyrics} onClose={handleOnModalClose} />
       </Container>
   );
 }

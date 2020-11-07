@@ -1,7 +1,12 @@
 import React from 'react';
 import { ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 
-export default function TrackItem({data}) {
+export default function TrackItem({ data, onClick }) {
+
+  handleOnClick = () => {
+    return onClick(data.track, data.id_track,  data.id_artist, data.id_album);
+  }
+
   return (
     <ListItem thumbnail>
         <Left>
@@ -13,7 +18,7 @@ export default function TrackItem({data}) {
         <Text note numberOfLines={1}>Album: {data.album}</Text>
         </Body>
         <Right>
-        <Button transparent>
+        <Button onPress={handleOnClick} transparent>
             <Text>View</Text>
         </Button>
         </Right>
