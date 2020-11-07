@@ -5,6 +5,7 @@ import Font from "expo-font";
 import LatestTracksTab from '../pages/latestTracks';
 import ArtistsTab from '../pages/artists';
 import AlbumsTab from '../pages/albums';
+import SearchTab from '../pages/search';
 
 export default function TabsNav() {
     return (
@@ -25,6 +26,9 @@ export default function TabsNav() {
             </Tab>
             <Tab textStyle={{color:'#fff'}} tabStyle={styles.tabStyles} activeTabStyle={styles.activTabStyles} heading="Albums">
               <AlbumsTab />
+            </Tab>
+            <Tab textStyle={{color:'#fff'}} tabStyle={styles.tabStyles} activeTabStyle={styles.activTabStyles} heading="Search">
+              <SearchTab />
             </Tab>
           </Tabs>
         </Container>

@@ -46,3 +46,26 @@ export async function getLyrics(lyricsUrl)
         throw ex;
     }
 }
+
+//getSearchQuery
+export async function getSearchQuery(query)
+{
+    try{
+        var data;
+        const api = axios.create({
+            baseURL: `${base_url}`,
+            headers: {
+                'x-happi-key': `${API_KEY}`
+            }
+        });
+
+        await api.get(`?q=${query}&limit=10&type=track`).then(res => {
+            data = res.data;
+        });
+        //console.log(data);
+        return data;
+    }
+    catch(ex){
+        throw ex;
+    }
+}

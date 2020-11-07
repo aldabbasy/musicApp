@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Container, Content, List } from 'native-base';
-import { getLatestTracks, getLyrics } from '../services/latestTracks'
+import { getLatestTracks, getLyrics } from '../services/latestTracks';
 import TrackItem from '../components/trackItem';
 import LyricsModal from '../components/lyricsModal';
 
