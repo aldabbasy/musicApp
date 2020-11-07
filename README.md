@@ -3,7 +3,7 @@ ReactNative Music App using Happi Music API with expo configurations
 
 ## What I Learned
 * Axios to make HTTP Requests
-* Functional React-Hooks
+* Functional Components with React-Hooks
 
 ### How To Install
 1. Clone this directory to your machine
